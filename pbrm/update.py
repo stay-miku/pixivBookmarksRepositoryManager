@@ -1,6 +1,6 @@
 import json
 
-import spider
+from pbrm import spider
 import save_illust
 import utils
 import os

@@ -7,10 +7,15 @@ setup(
     author='stay_miku',
     author_email='none',
     url='https://github.com/yourusername/myproject',
-    packages=find_packages(),
+    packages=find_packages(include=["pbrm.spider"]),
     install_requires=[
         "requests",
         "lxml",
         "docopt"
     ],
+    entry_points={
+        'console_scripts': [
+            'pbrm=pbrm.pbrm:main',
+        ],
+    }
 )
