@@ -7,8 +7,14 @@ import os
 from pbrm import delete
 
 
-def work_exists(pid: str, path: str):
-    return os.path.exists(path + "/" + pid)
+def work_exists(pid: str, path: str, unavailable: bool):
+    if os.path.exists(path + "/" + pid) and os.path.isdir(path + "/" + pid):
+        if len(os.listdir(path + "/" + pid)) > (1 if unavailable else 2):
+            return True
+        else:
+            return False
+
+    return False
 
 
 # 失效的作品的id和userId是整形而不是字符串
@@ -33,7 +39,7 @@ def update(cookie: str, path: str, skip_download: bool, skip_meta: bool, force_u
         all_illust.append(str(illust["id"]))
         print("update: " + str(illust["id"]) + " process: {}/{}".format(str(i), bookmarks["total"]))
         if not force_update:
-            if work_exists(str(illust["id"]), path):
+            if work_exists(str(illust["id"]), path, illust["userId"] == 0):
                 if force_update_meta != force_update_illust and illust["userId"] != 0:
                     # 将force当skip用
                     log["updated"] += 1
