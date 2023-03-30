@@ -7,7 +7,6 @@ import pbrm_statistics
 
 
 def command_process(args: Dict, script_path: str, work_path: str):
-    print(args)
     if args["update"]:
         update.update(config.cookie, config.repository_path, args["--skip-download"], args["--skip-meta"]
                       , args["--force-update"], args["--force-update-illust"], args["--force-update-meta"]
