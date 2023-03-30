@@ -47,7 +47,7 @@ def update(cookie: str, path: str, skip_download: bool, skip_meta: bool, force_u
                                             , not force_update_illust, not force_update_meta)
                 continue
 
-        if not work_exists(str(illust["id"]), path):
+        if not (os.path.exists(path + "/" + str(illust["id"])) and os.path.isdir(path + "/" + str(illust["id"]))):
             os.mkdir(path + "/" + str(illust["id"]))
 
         if illust["userId"] == 0:
@@ -55,6 +55,7 @@ def update(cookie: str, path: str, skip_download: bool, skip_meta: bool, force_u
             save_illust.save_unavailable(illust, path + "/" + str(illust["id"]))
             continue
 
+        log["updated"] += 1
         save_illust.save_illust(illust["id"], path + "/" + illust["id"], cookie, save_gif, skip_download, skip_meta)
 
     if auto_remove:
