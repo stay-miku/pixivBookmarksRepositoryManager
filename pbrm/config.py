@@ -15,14 +15,16 @@ def load(path: str):
     global cookie
     global ugoira
     global ffmpeg
+    global repository_path
     if not os.path.exists(path):
-        config = {"cookie": None, "ugoira": "raw", "ffmpeg": None, "repositoryPath": None}
+        config = {"cookie": "", "ugoira": "raw", "ffmpeg": "", "repositoryPath": ""}
         f = open(path, "w", encoding="utf-8")
         f.write(json.dumps(config, ensure_ascii=False))
         f.close()
-        cookie = None
+        cookie = ""
         ugoira = "img"
-        ffmpeg = None
+        ffmpeg = ""
+        repository_path = ""
     else:
         f = open(path, "r", encoding="utf-8")
         j = f.read()
@@ -31,6 +33,7 @@ def load(path: str):
         cookie = js["cookie"]
         ugoira = js["ugoira"]
         ffmpeg = js["ffmpeg"]
+        repository_path = js["repositoryPath"]
 
 
 def change_cookie(c: str, path):

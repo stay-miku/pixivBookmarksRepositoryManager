@@ -1,9 +1,9 @@
 from typing import Dict
-import update
-import config
-import delete
-import change_repository
-import pbrm_statistics
+from pbrm import update
+from pbrm import config
+from pbrm import delete
+from pbrm import change_repository
+from pbrm import pbrm_statistics
 
 
 def command_process(args: Dict, script_path: str, work_path: str):

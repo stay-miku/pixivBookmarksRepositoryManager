@@ -2,9 +2,9 @@ import os
 import zipfile
 import subprocess
 
-import spider
-import utils
-import error
+from pbrm import spider
+from pbrm import utils
+from pbrm import error
 
 
 def save_log(log, path: str):
@@ -26,6 +26,10 @@ def save_img(meta, path: str, cookie: str):
         file = spider.image_download(url)
         file_name = url.split("/")[-1]
         utils.save_file(file, path, file_name)
+
+
+def save_manga(meta, path: str, cookie: str):
+    save_img(meta, path, cookie)
 
 
 def save_ugoira(meta, path: str, cookie: str, save_gif: bool):
@@ -63,10 +67,12 @@ def save_illust(pid: str, path: str, cookie: str, save_gif: bool, skip_download:
     if not skip_download:
         if meta["illustType"] == 0:
             save_img(meta, path, cookie)
+        elif meta["illustType"] == 1:
+            save_manga(meta, path, cookie)
         elif meta["illustType"] == 2:
             save_ugoira(meta, path, cookie, save_gif)
         else:
-            raise error.UnSupportIllustType("UnSupport type: " + meta["illustType"])
+            raise error.UnSupportIllustType("UnSupport type: " + str(meta["illustType"]))
     if not skip_meta:
         save_meta(meta, path)
 

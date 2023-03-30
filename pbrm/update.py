@@ -1,10 +1,10 @@
 import json
 
-import spider
-import save_illust
-import utils
+from pbrm import spider
+from pbrm import save_illust
+from pbrm import utils
 import os
-import delete
+from pbrm import delete
 
 
 def work_exists(pid: str, path: str):

@@ -37,9 +37,10 @@ def get_bookmarks(cookie: str, user: str):
             raise pbrm.GetBookmarksError(json_data["message"])
         if total == 0:
             total = json_data["body"]["total"]
-        bookmarks["illust"].append(json_data["body"]["works"])
+        bookmarks["illust"] += json_data["body"]["works"]
         if page * one_page_count >= total:
             break
+        page += 1
 
     bookmarks["total"] = total
     return bookmarks

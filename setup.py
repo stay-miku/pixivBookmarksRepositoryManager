@@ -7,7 +7,7 @@ setup(
     author='stay_miku',
     author_email='none',
     url='https://github.com/yourusername/myproject',
-    packages=find_packages(include=["pbrm.spider"]),
+    packages=find_packages(),
     install_requires=[
         "requests",
         "lxml",
@@ -15,7 +15,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pbrm=pbrm.pbrm:main',
+            'pbrm=pbrm.main:main',
         ],
     }
 )

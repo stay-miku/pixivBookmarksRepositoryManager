@@ -1,6 +1,6 @@
 import docopt
-import command_process
-import config
+from pbrm import command_process
+from pbrm import config
 import os
 
 doc = """Pixiv Bookmarks Repository Manager
