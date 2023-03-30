@@ -9,6 +9,8 @@ setup(
     url='https://github.com/yourusername/myproject',
     packages=find_packages(),
     install_requires=[
-
+        "requests",
+        "lxml",
+        "docopt"
     ],
 )
