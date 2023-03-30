@@ -2,7 +2,7 @@ import os
 import zipfile
 import subprocess
 
-from pbrm import spider
+import spider
 import utils
 import error
 
