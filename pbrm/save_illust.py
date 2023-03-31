@@ -38,6 +38,7 @@ def save_ugoira(meta, path: str, cookie: str, save_gif: bool):
     if not os.path.exists(path + "/images"):
         os.mkdir(path + "/images")
     ugoira_meta = spider.get_ugoira_meta(meta["id"], cookie)
+    utils.save_json(ugoira_meta, path, "ugoira.json")
     ugoira = spider.ugoira_download(ugoira_meta["originalSrc"])
     utils.save_file(ugoira, path + "/images", "ugoira.zip")
     with zipfile.ZipFile(path + "/images/ugoira.zip", "r") as zip_file:  # 解压压缩包

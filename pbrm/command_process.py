@@ -4,6 +4,7 @@ from pbrm import config
 from pbrm import delete
 from pbrm import change_repository
 from pbrm import pbrm_statistics
+from pbrm import gif
 
 
 def command_process(args: Dict, script_path: str, work_path: str):
@@ -27,6 +28,8 @@ def command_process(args: Dict, script_path: str, work_path: str):
             if args["<CONTENT>"] is None:
                 print(config.ugoira)
             elif args["<CONTENT>"] == "raw" or args["<CONTENT>"] == "gif":
+                if args["<CONTENT>"] == "gif":
+                    gif.auto_transform(config.repository_path)
                 config.change_ugoira(args["<CONTENT>"], script_path)
                 print("changed")
             else:
