@@ -8,7 +8,7 @@ def statistics_unavailable(path: str):
         bookmarks = json.loads(f.read())
     for i in bookmarks["illust"]:
         if i["userId"] == 0:
-            with open(path + "/" + i["id"] + "/meta.json", "r", encoding="utf-8") as f:
+            with open(path + "/" + str(i["id"]) + "/meta.json", "r", encoding="utf-8") as f:
                 if json.loads(f.read())["userId"] == 0:
                     s.append(i["id"])
     return s
@@ -20,7 +20,7 @@ def statistics_unavailableSaved(path: str):
         bookmarks = json.loads(f.read())
     for i in bookmarks["illust"]:
         if i["userId"] == 0:
-            with open(path + "/" + i["id"] + "/meta.json", "r", encoding="utf-8") as f:
+            with open(path + "/" + str(i["id"]) + "/meta.json", "r", encoding="utf-8") as f:
                 if json.loads(f.read())["userId"] != 0:
                     s.append(i["id"])
     return s
