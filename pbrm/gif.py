@@ -33,7 +33,7 @@ def gif_illust(path: str):
     extension = file_name.split(".")[1]
     length = len(file_name.split(".")[0])
 
-    img_to_gif(path + "/images/%0{}.{}".format(str(length), extension), os.path.join(path, name + ".gif"), frame_rate)
+    img_to_gif(path + "/images/%0{}d.{}".format(str(length), extension), os.path.join(path, name + ".gif"), frame_rate)
 
 
 def auto_transform(path: str):
