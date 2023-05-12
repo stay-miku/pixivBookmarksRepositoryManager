@@ -34,7 +34,7 @@ pbrm update
 ```
 会自动备份所有收藏到之前设置的路径中。会自动跳过失效的收藏（如果之前没备份过会存个meta数据，唯一的作用是知道作品pid）
 
-## 可选特性
+## 一些小功能
 1.统计数据
 ```
 pbrm show (unavailable | unavailableSaved | saved) [-o]
