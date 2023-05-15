@@ -43,7 +43,7 @@ pbrm show (unavailable | unavailableSaved | saved) [-o]
 ```
 pbrm show unavailable
 ```
-显示所有为备份且失效的收藏
+显示所有未备份且失效的收藏
 
 ```
 pbrm show unavailableSaved -o
