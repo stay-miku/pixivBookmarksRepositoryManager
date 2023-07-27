@@ -6,7 +6,7 @@ setup(
     description='A pixiv bookmarks local backup tool',
     author='stay_miku',
     author_email='miku@miku.pics',
-    url='',
+    url='https://github.com/stay-miku/pixivBookmarksRepositoryManager',
     packages=find_packages(),
     install_requires=[
         "requests",
