@@ -40,7 +40,7 @@ def update(cookie: str, path: str, skip_download: bool, skip_meta: bool, force_u
         all_illust.append(str(illust["id"]))
         print("update: " + str(illust["id"]) + " process: {}/{}".format(str(i), bookmarks["total"]))
         if not force_update:
-            if work_exists(str(illust["id"]), path, illust["userId"] == 0, save_gif, illust["pageCount"]):
+            if work_exists(str(illust["id"]), path, illust["userId"] == 0, save_gif and (illust["illustType"] == 2), illust["pageCount"]):
                 if force_update_meta != force_update_illust and illust["userId"] != 0:
                     # 将force当skip用
                     log["updated"] += 1
