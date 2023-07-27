@@ -7,9 +7,10 @@ import os
 from pbrm import delete
 
 
-def work_exists(pid: str, path: str, unavailable: bool):
+def work_exists(pid: str, path: str, unavailable: bool, is_gif: bool, num: int):
     if os.path.exists(path + "/" + pid) and os.path.isdir(path + "/" + pid):
-        if len(os.listdir(path + "/" + pid)) > (1 if unavailable else 2):
+        # 判断是否保存完全(防止因网络原因导致的下载中断)
+        if len(os.listdir(path + "/" + pid)) >= (1 if unavailable else (num + 4 if is_gif else num + 2)):
             return True
         else:
             return False
@@ -65,8 +66,8 @@ def update(cookie: str, path: str, skip_download: bool, skip_meta: bool, force_u
                 delete.delete(os.path.join(path, i))
 
     with open(os.path.join(path, "log.json"), "w", encoding="utf-8") as f:
-        f.write(json.dumps(log))
+        f.write(json.dumps(log, ensure_ascii=False))
 
     with open(os.path.join(path, "bookmarks.json"), "w", encoding="utf-8") as f:
-        f.write(json.dumps(bookmarks))
+        f.write(json.dumps(bookmarks, ensure_ascii=False))
 
