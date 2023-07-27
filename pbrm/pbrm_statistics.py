@@ -31,14 +31,14 @@ def statistics_saved(path: str):
     illusts = []
 
     for single_illusts in all_illusts:
-        with open(os.path.join(path, single_illusts + "/meta.json")) as f:
+        with open(os.path.join(path, single_illusts + "/meta.json"), encoding="utf-8") as f:
             meta = json.loads(f.read())
-            if meta["userId"] == 0:
-                continue
-            elif len(os.listdir(path + "/" + single_illusts)) >= (meta["pageCount"] + 4 if meta["illustType"] == 2 else meta["pageCount"] + 2):
-                illusts.append(single_illusts)
-            else:
-                continue
+        if meta["userId"] == 0:
+            continue
+        elif len(os.listdir(path + "/" + single_illusts)) >= (meta["pageCount"] + 4 if meta["illustType"] == 2 else meta["pageCount"] + 2):
+            illusts.append(single_illusts)
+        else:
+            continue
 
     return illusts
 

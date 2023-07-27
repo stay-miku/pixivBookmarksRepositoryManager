@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pbrm',
-    version='0.0.7',
+    version='0.0.8',
     description='A pixiv bookmarks local backup tool',
     author='stay_miku',
     author_email='miku@miku.pics',
