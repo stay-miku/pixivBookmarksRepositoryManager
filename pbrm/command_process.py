@@ -71,7 +71,7 @@ def command_process(args: Dict, script_path: str, work_path: str):
 
     elif args["zip"]:
         output_path = args["<OUT_PATH>"]
-        if output_path.startwith("/"):
+        if output_path.startswith("/"):
             pass
         else:
             output_path = os.path.join(work_path, output_path)
