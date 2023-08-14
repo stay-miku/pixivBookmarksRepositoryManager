@@ -5,6 +5,8 @@ from pbrm import delete
 from pbrm import change_repository
 from pbrm import pbrm_statistics
 from pbrm import gif
+from . import zip
+import os
 
 
 def command_process(args: Dict, script_path: str, work_path: str):
@@ -66,3 +68,12 @@ def command_process(args: Dict, script_path: str, work_path: str):
             else:
                 for i in pbrm_statistics.statistics_saved(config.repository_path):
                     print(i)
+
+    elif args["zip"]:
+        output_path = args["<OUT_PATH>"]
+        if output_path.startwith("/"):
+            pass
+        else:
+            output_path = os.path.join(work_path, output_path)
+
+        zip.zip_out(output_path)
