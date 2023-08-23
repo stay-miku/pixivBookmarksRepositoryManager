@@ -28,7 +28,7 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                                    , "跳过动图类型作品," if skip_ugoira else ""
                                    , "跳过插画类型作品," if skip_image else ""
                                    , "单个作品下载图片数量上限为{}".format("无上限" if max_image > 9999 else max_image)))
-    i = 0
+    downloaded = 0
     for illust in illusts:
         print("获取作品{}数据...".format(illust), end="", flush=True)
         while 1:
@@ -50,6 +50,8 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
             continue
 
         illust_tags = get_meta_tag(meta)
+        illust_tags = [i.strip().lower() for i in illust_tags]
+        tags = [i.strip().lower() for i in tags]
 
         if strict:
             tags_set = set(tags)
@@ -87,6 +89,6 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
         if not support:
             print("不支持的作品类型: {}, 跳过".format(meta["illustType"]))
             continue
-        i += 1
+        downloaded += 1
         print("保存完毕")
-    print("共保存了{}个作品".format(i))
+    print("共保存了{}个作品".format(downloaded))
