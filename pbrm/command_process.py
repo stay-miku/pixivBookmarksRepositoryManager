@@ -7,6 +7,8 @@ from pbrm import pbrm_statistics
 from pbrm import gif
 from . import zip
 import os
+from .save_illust import save_illust
+from .user_download import user_download
 
 
 def command_process(args: Dict, script_path: str, work_path: str):
@@ -77,3 +79,18 @@ def command_process(args: Dict, script_path: str, work_path: str):
             output_path = os.path.join(work_path, output_path)
 
         zip.zip_out(output_path)
+
+    elif args["download"]:
+        if args["--illust"]:
+            save_illust(args["<USER_ID>"], work_path, config.cookie, config.ugoira == "gif", False, True, False)
+            print("completed")
+
+        else:
+            if args["--tags"]:
+                tags = args["<TAG>"]
+            else:
+                tags = []
+
+            user_download(args["<USER_ID>"], work_path, tags, args["--strict"], args["--no-manga"]
+                          , args["--no-ugoira"], args["--no-image"], args["<MAX_SIZE>"] if int(args["--max"]) else 10000)
+
