@@ -21,9 +21,23 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                   , skip_image: bool, max_image: int):
     illusts = get_user_illusts(user_id, config.cookie)
     print("当前作者共有{}个作品".format(len(illusts)))
+    print(
+        "{} {} {} {} {} {}".format("使用tag限制, tag限制为{},".format(" ".join(tags)) if len(tags) != 0 else "不使用tag限制"
+                                   , "使用严格模式," if strict else "不使用严格模式"
+                                   , "跳过漫画类型作品," if skip_manga else ""
+                                   , "跳过动图类型作品," if skip_ugoira else ""
+                                   , "跳过插画类型作品," if skip_image else ""
+                                   , "单个作品下载图片数量上限为{}".format("无上限" if max_image > 9999 else max_image)))
+    i = 0
     for illust in illusts:
         print("获取作品{}数据...".format(illust), end="")
-        meta = get_illust_meta(illust, config.cookie)
+        while 1:
+            try:
+                meta = get_illust_meta(illust, config.cookie)
+                break
+            except Exception as e:
+                print("Error: " + str(e) + "重试...", end="")
+
         print("获取成功...", end="")
         if skip_manga and meta["illustType"] == 1:
             print("作品为漫画类型,跳过")
@@ -58,16 +72,24 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                 continue
 
         print("开始下载...", end="")
-        if meta["illustType"] == 0:
-            save_illust.save_img(meta, path, config.cookie, False, max_image)
-        elif meta["illustType"] == 1:
-            save_illust.save_manga(meta, path, config.cookie, False, max_image)
-        elif meta["illustType"] == 2:
-            save_illust.save_ugoira(meta, path, config.cookie, config.ugoira == "gif", False)
-        else:
+        support = True
+        while 1:
+            try:
+                if meta["illustType"] == 0:
+                    save_illust.save_img(meta, path, config.cookie, False, max_image)
+                elif meta["illustType"] == 1:
+                    save_illust.save_manga(meta, path, config.cookie, False, max_image)
+                elif meta["illustType"] == 2:
+                    save_illust.save_ugoira(meta, path, config.cookie, config.ugoira == "gif", False)
+                else:
+                    support = False
+                break
+            except Exception as e:
+                print("Error: " + str(e) + "重试...", end="")
+
+        if not support:
             print("不支持的作品类型: {}, 跳过".format(meta["illustType"]))
             continue
-
+        i += 1
         print("保存完毕")
-
-
+    print("共保存了{}个作品".format(i))

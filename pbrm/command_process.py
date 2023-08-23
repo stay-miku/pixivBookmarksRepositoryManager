@@ -13,8 +13,20 @@ from . import error
 from . import spider
 
 
+def cookie_verify(cookie="") -> bool:
+    try:
+        user = spider.cookie_verify(config.cookie if cookie == "" else cookie)
+        print("cookie有效, userId: {}, userName: {}".format(user["userId"], user["userName"]))
+        return True
+    except error.CookieVerifyError:
+        print("cookie无效,请使用pbrm config cookie <CONTENT>命令重新设置")
+        return False
+
+
 def command_process(args: Dict, script_path: str, work_path: str):
     if args["update"]:
+        if not cookie_verify():
+            return
         update.update(config.cookie, config.repository_path, args["--skip-download"], args["--skip-meta"]
                       , args["--force-update"], args["--force-update-illust"], args["--force-update-meta"]
                       , args["--auto-remove"], config.ugoira == "gif")
@@ -83,6 +95,8 @@ def command_process(args: Dict, script_path: str, work_path: str):
         zip.zip_out(output_path)
 
     elif args["download"]:
+        if not cookie_verify():
+            return
         if args["--illust"]:
             save_illust(args["<USER_ID>"], work_path, config.cookie, config.ugoira == "gif", False, True, False)
             print("completed")
@@ -94,7 +108,8 @@ def command_process(args: Dict, script_path: str, work_path: str):
                 tags = []
 
             user_download(args["<USER_ID>"], work_path, tags, args["--strict"], args["--no-manga"]
-                          , args["--no-ugoira"], args["--no-image"], args["<MAX_SIZE>"] if int(args["--max"]) else 10000)
+                          , args["--no-ugoira"], args["--no-image"]
+                          , int(args["<MAX_SIZE>"]) if args["--max"] else 10000)
 
     elif args["cookie"]:
         try:

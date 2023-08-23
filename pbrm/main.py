@@ -4,6 +4,8 @@ from pbrm import config
 import os
 
 doc = """Pixiv Bookmarks Repository Manager
+注意: download必须配置cookie,否则会导致无法获取完整的作品列表和tag列表
+download下载遇到网络等错误时会自动重试,但update不会(因为update会自动跳过已完成的下载,但download会覆盖下载一次)
 
 Usage:
     pbrm update [-dmafin]
@@ -12,7 +14,7 @@ Usage:
     pbrm set [<PATH>]
     pbrm show (unavailable | unavailableSaved | saved) [-o]
     pbrm zip <OUT_PATH>
-    pbrm download <USER_ID> [-t <TAG>... [-s]] [-l] [--no-manga] [--no-ugoira] [--no-image] [--max <MAX_SIZE>]
+    pbrm download <USER_ID> [--max <MAX_SIZE>] [-t <TAG>... [-s]] [-l] [--no-manga] [--no-ugoira] [--no-image]
     pbrm cookie [<COOKIE>]
 
 Options:
@@ -29,7 +31,7 @@ Options:
     --no-manga                      下载作品时会跳过漫画类型,tip:目前download操作不会下载漫画类型(除非--illust),此参数目前无效
     --no-ugoira                     下载作品时会跳过动图类型
     --no-image                      下载作品时会跳过插画类型
-    --max                           下载有多张图片的插画或漫画时,下载图片数量的上限
+    --max                           下载有多张图片的插画或漫画时,下载图片数量的上限(该选项必须出现在-t前)
     
     <PID>                           作品id
     <CONFIG>                        配置项,可配置项为cookie,ugoira(动图保存方式,对应CONTENT有raw和gif,分别是多张图片保存和需要ffmpeg的gif保存)
@@ -37,6 +39,7 @@ Options:
     <PATH>                          仓库位置路径,为空时为显示仓库路径,为this是使用当前路径,其余为指定路径
     <OUT_PATH>                      输出的zip文件路径和名称,如./output.zip
     <USER_ID>                       作者的user id
+    <MAX_SIZE>                      下载有多张图片的插画或漫画时,下载图片数量的上限
     <TAG>                           单个tag,建议使用相应作者作品下显示的tag,否则可能无法匹配
     <COOKIE>                        可选项,若不填则检测当前所配置的cookie,填了就检测参数所提供的cookie
     
@@ -56,7 +59,7 @@ Options:
 
 
 def main():
-    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.0.12")
+    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.0.14")
     work_path = os.getcwd().replace("\\", "/")
     script_path = os.path.dirname(__file__).replace("\\", "/")
     config.load(script_path + "/config.json")
