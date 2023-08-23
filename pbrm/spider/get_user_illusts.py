@@ -12,9 +12,11 @@ def get_user_illusts(pid: str, cookie: str):
         "cookie": cookie
     }
 
-    url = "https://www.pixiv.net/ajax/user/{}/profile/all?lang=zh&version=6ef70395cd96e1ec38515f935cf09d2b4c977caf".format(pid)
+    url = "https://www.pixiv.net/ajax/user/{}/profile/all?lang=zh".format(pid)
 
     response = requests.get(url, headers=header)
+    response_json = json.loads(response.content.decode("utf-8"))
+    r = list(response_json["body"]["illusts"].keys()) + list(response_json["body"]["manga"].keys())
 
-    return list(json.loads(response.content.decode("utf-8"))["body"]["illusts"].keys())
+    return r
 

@@ -13,7 +13,7 @@ def zip_out(path: str):
             pic = [f for f in os.listdir(os.path.join(config.repository_path, illust)) if len(f.lower().split(".")) >= 2 and f.lower().split(".")[1] != "json"]
             m = 1
             for p in pic:
-                print("{}-{} {} : {}".format(j, m, i, os.path.join(config.repository_path, illust, p)))
+                print("{}-{} {} : {}".format(j, m, i, os.path.join(config.repository_path, illust, p).replace("\\", "/")))
                 base_name = os.path.basename(os.path.join(config.repository_path, illust, p))
                 f.write(os.path.join(config.repository_path, illust, p), base_name)
                 i += 1
