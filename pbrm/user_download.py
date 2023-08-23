@@ -61,11 +61,8 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
         else:
             contain = False
             for i in tags:
-                for j in illusts:
-                    if i == j:
-                        contain = True
-                        break
-                if contain:
+                if i in illust_tags:
+                    contain = True
                     break
             if not contain:
                 print("未符合tag要求,跳过")
