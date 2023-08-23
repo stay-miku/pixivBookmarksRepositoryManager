@@ -30,15 +30,15 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                                    , "单个作品下载图片数量上限为{}".format("无上限" if max_image > 9999 else max_image)))
     i = 0
     for illust in illusts:
-        print("获取作品{}数据...".format(illust), end="")
+        print("获取作品{}数据...".format(illust), end="", flush=True)
         while 1:
             try:
                 meta = get_illust_meta(illust, config.cookie)
                 break
             except Exception as e:
-                print("Error: " + str(e) + "重试...", end="")
+                print("Error: " + str(e) + "重试...", end="", flush=True)
 
-        print("获取成功...", end="")
+        print("获取成功...", end="", flush=True)
         if skip_manga and meta["illustType"] == 1:
             print("作品为漫画类型,跳过")
             continue
@@ -71,7 +71,7 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                 print("未符合tag要求,跳过")
                 continue
 
-        print("开始下载...", end="")
+        print("开始下载...", end="", flush=True)
         support = True
         while 1:
             try:
@@ -85,7 +85,7 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
                     support = False
                 break
             except Exception as e:
-                print("Error: " + str(e) + "重试...", end="")
+                print("Error: " + str(e) + "重试...", end="", flush=True)
 
         if not support:
             print("不支持的作品类型: {}, 跳过".format(meta["illustType"]))
