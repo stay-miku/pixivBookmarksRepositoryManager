@@ -13,6 +13,7 @@ Usage:
     pbrm show (unavailable | unavailableSaved | saved) [-o]
     pbrm zip <OUT_PATH>
     pbrm download <USER_ID> [-t <TAG>... [-s]] [-l] [--no-manga] [--no-ugoira] [--no-image] [--max <MAX_SIZE>]
+    pbrm cookie [<COOKIE>]
 
 Options:
     -d, --skip-download             跳过下载作品(仍会下载meta)
@@ -37,6 +38,7 @@ Options:
     <OUT_PATH>                      输出的zip文件路径和名称,如./output.zip
     <USER_ID>                       作者的user id
     <TAG>                           单个tag,建议使用相应作者作品下显示的tag,否则可能无法匹配
+    <COOKIE>                        可选项,若不填则检测当前所配置的cookie,填了就检测参数所提供的cookie
     
     update                          更新收藏
     delete                          删除指定收藏(仅支持pid指定)
@@ -47,7 +49,8 @@ Options:
     unavailableSaved                失效但已保存的作品
     saved                           已保存的作品
     zip                             将备份的作品打包到zip文件中
-    download                        下载某个作者的作品,保存到当前文件夹
+    download                        下载某个作者的作品,保存到当前文件夹(也需要配置cookie)
+    cookie                          测试当前cookie可用性
 
 """
 

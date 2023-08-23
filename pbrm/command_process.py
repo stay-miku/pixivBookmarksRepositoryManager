@@ -9,6 +9,8 @@ from . import zip
 import os
 from .save_illust import save_illust
 from .user_download import user_download
+from . import error
+from . import spider
 
 
 def command_process(args: Dict, script_path: str, work_path: str):
@@ -94,3 +96,9 @@ def command_process(args: Dict, script_path: str, work_path: str):
             user_download(args["<USER_ID>"], work_path, tags, args["--strict"], args["--no-manga"]
                           , args["--no-ugoira"], args["--no-image"], args["<MAX_SIZE>"] if int(args["--max"]) else 10000)
 
+    elif args["cookie"]:
+        try:
+            user = spider.cookie_verify(config.cookie if args["<COOKIE>"] is None else args["<COOKIE>"])
+            print("cookie有效, userId: {}, userName: {}".format(user["userId"], user["userName"]))
+        except error.CookieVerifyError:
+            print("cookie无效")
