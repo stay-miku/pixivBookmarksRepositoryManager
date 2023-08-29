@@ -44,7 +44,8 @@ def save_ugoira(meta, path: str, cookie: str, save_gif: bool, saving_log=True):
     if not os.path.exists(path + "/images"):
         os.mkdir(path + "/images")
     ugoira_meta = spider.get_ugoira_meta(meta["id"], cookie)
-    utils.save_json(ugoira_meta, path, "ugoira.json")
+    if saving_log:
+        utils.save_json(ugoira_meta, path, "ugoira.json")
     ugoira = spider.ugoira_download(ugoira_meta["originalSrc"])
     utils.save_file(ugoira, path + "/images", "ugoira.zip")
     with zipfile.ZipFile(path + "/images/ugoira.zip", "r") as zip_file:  # 解压压缩包
@@ -63,7 +64,7 @@ def save_ugoira(meta, path: str, cookie: str, save_gif: bool, saving_log=True):
                                 " \"split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" {}.gif"
                                 .format(str(frame_rate), path + "/images", str(length),
                                         extension, path + "/" + meta["id"])
-                                , stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                                , stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         if result.returncode != 0:
             raise error.CommandRunError("stdout: " + result.stdout.decode()
                                         + "\n--------------------------\nstderr: " + result.stderr.decode())
