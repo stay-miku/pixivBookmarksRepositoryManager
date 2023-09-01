@@ -59,7 +59,7 @@ Options:
 
 
 def main():
-    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.1.4")
+    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.1.5")
     work_path = os.getcwd().replace("\\", "/")
     script_path = os.path.dirname(__file__).replace("\\", "/")
     config.load(script_path + "/config.json")
