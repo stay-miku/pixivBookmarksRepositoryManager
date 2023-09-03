@@ -52,23 +52,23 @@ def user_download(user_id: str, path: str, tags: List[str], strict: bool, skip_m
         illust_tags = get_meta_tag(meta)
         illust_tags = [i.strip().lower() for i in illust_tags]
         tags = [i.strip().lower() for i in tags]
+        if len(tags) > 0:
+            if strict:
+                tags_set = set(tags)
+                illusts_tags_set = set(illust_tags)
+                if not tags_set.issubset(illusts_tags_set):
+                    print("未符合tag要求(严格模式),跳过")
+                    continue
 
-        if strict:
-            tags_set = set(tags)
-            illusts_tags_set = set(illust_tags)
-            if not tags_set.issubset(illusts_tags_set):
-                print("未符合tag要求(严格模式),跳过")
-                continue
-
-        else:
-            contain = False
-            for i in tags:
-                if i in illust_tags:
-                    contain = True
-                    break
-            if not contain:
-                print("未符合tag要求,跳过")
-                continue
+            else:
+                contain = False
+                for i in tags:
+                    if i in illust_tags:
+                        contain = True
+                        break
+                if not contain:
+                    print("未符合tag要求,跳过")
+                    continue
 
         print("开始下载...", end="", flush=True)
         support = True
