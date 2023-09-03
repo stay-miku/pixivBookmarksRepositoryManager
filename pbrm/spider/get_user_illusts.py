@@ -16,7 +16,12 @@ def get_user_illusts(pid: str, cookie: str):
 
     response = requests.get(url, headers=header)
     response_json = json.loads(response.content.decode("utf-8"))
-    r = list(response_json["body"]["illusts"].keys()) + list(response_json["body"]["manga"].keys())
+    r = []
+    # 当对应的类型没有作品时,其为list,否则为dict
+    if isinstance(response_json["body"]["illusts"], dict):
+        r += list(response_json["body"]["illusts"].keys())
+    if isinstance(response_json["body"]["manga"], dict):
+        r += list(response_json["body"]["manga"].keys())
 
     return r
 
