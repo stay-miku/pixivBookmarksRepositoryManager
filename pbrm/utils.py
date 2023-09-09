@@ -34,3 +34,12 @@ def delete_redundant_pictures(path: str, rate: int):
     for file in deleted_files:
         os.rename(os.path.join(path, file), os.path.join(path, f"{i:0>{name_length}}.{file_extension}"))
         i += 1
+
+
+def delete_frame(path: str, max_frame: int):
+    files = sorted(os.listdir(path))
+    if len(files) > max_frame:
+        for file in files[max_frame:]:
+            os.remove(os.path.join(path, file))
+        return True
+    return False
