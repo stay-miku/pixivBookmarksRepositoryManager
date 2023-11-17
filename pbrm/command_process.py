@@ -11,6 +11,7 @@ from .save_illust import save_illust
 from .user_download import user_download
 from . import error
 from . import spider
+from . import web_server
 
 
 def cookie_verify(cookie="") -> bool:
@@ -117,3 +118,16 @@ def command_process(args: Dict, script_path: str, work_path: str):
             print("cookie有效, userId: {}, userName: {}".format(user["userId"], user["userName"]))
         except error.CookieVerifyError:
             print("cookie无效")
+
+    elif args["web"]:
+        if args["<HOST>"]:
+            host = args["<HOST>"]
+        else:
+            host = "localhost"
+
+        if args["<PORT>"]:
+            port = args["<PORT>"]
+        else:
+            port = 8080
+
+        web_server.run_web(host, port, args["--debug"])

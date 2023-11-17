@@ -16,6 +16,7 @@ Usage:
     pbrm zip <OUT_PATH>
     pbrm download <USER_ID> [--max <MAX_SIZE>] [-t <TAG>... [-s]] [-l] [--no-manga] [--no-ugoira] [--no-image]
     pbrm cookie [<COOKIE>]
+    pbrm web [<HOST>] [<PORT>] [--debug]
 
 Options:
     -d, --skip-download             跳过下载作品(仍会下载meta)
@@ -32,6 +33,7 @@ Options:
     --no-ugoira                     下载作品时会跳过动图类型
     --no-image                      下载作品时会跳过插画类型
     --max                           下载有多张图片的插画或漫画时,下载图片数量的上限(该选项必须出现在-t前)
+    --debug                         以debug模式运行bottle server服务
     
     <PID>                           作品id
     <CONFIG>                        配置项,可配置项为cookie,ugoira(动图保存方式,对应CONTENT有raw和gif,分别是多张图片保存和需要ffmpeg的gif保存)
@@ -42,6 +44,8 @@ Options:
     <MAX_SIZE>                      下载有多张图片的插画或漫画时,下载图片数量的上限
     <TAG>                           单个tag,建议使用相应作者作品下显示的tag,否则可能无法匹配
     <COOKIE>                        可选项,若不填则检测当前所配置的cookie,填了就检测参数所提供的cookie
+    <HOST>                          监听的ip地址,默认为localhost
+    <PORT>                          监听的端口,默认为8080
     
     update                          更新收藏
     delete                          删除指定收藏(仅支持pid指定)
@@ -59,7 +63,7 @@ Options:
 
 
 def main():
-    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.1.8")
+    args = docopt.docopt(doc, version="Pixiv Bookmarks Repository Manager 0.2.1")
     work_path = os.getcwd().replace("\\", "/")
     script_path = os.path.dirname(__file__).replace("\\", "/")
     config.load(script_path + "/config.json")

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pbrm',
-    version='0.1.8',
+    version='0.2.1',
     description='A pixiv bookmarks local backup tool',
     author='stay_miku',
     author_email='miku@miku.pics',
@@ -11,11 +11,13 @@ setup(
     install_requires=[
         "requests",
         "lxml",
-        "docopt"
+        "docopt",
+        "bottle"
     ],
     entry_points={
         'console_scripts': [
             'pbrm=pbrm.main:main',
         ],
-    }
+    },
+    package_data={"pbrm.web_server": ["template/*"]}
 )

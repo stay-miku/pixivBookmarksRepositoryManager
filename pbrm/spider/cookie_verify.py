@@ -16,7 +16,7 @@ def cookie_verify(cookie: str):
         "sec-ch-ua": "\"Google Chrome\";v=\"111\", \"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"111\"",
         "pragma": "no-cache",
         "cache-control": "no-cache",
-        "accept-encoding": "gzip, deflate, br",
+        # "accept-encoding": "gzip, deflate, br",
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,"
                   "application/signed-exchange;v=b3;q=0.7"
     }

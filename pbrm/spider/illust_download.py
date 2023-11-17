@@ -10,7 +10,7 @@ header = {
     "sec-ch-ua": "\"Google Chrome\";v=\"111\", \"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"111\"",
     "pragma": "no-cache",
     "cache-control": "no-cache",
-    "accept-encoding": "gzip, deflate, br",
+    # "accept-encoding": "gzip, deflate, br",
     "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
 }
 

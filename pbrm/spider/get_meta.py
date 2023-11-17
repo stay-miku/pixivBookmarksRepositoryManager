@@ -13,7 +13,7 @@ header = {
     "referer": "",
     "pragma": "no-cache",
     "cache-control": "no-cache",
-    "accept-encoding": "gzip, deflate, br",
+    # "accept-encoding": "gzip, deflate, br",
     "accept": "*/*"
 }
 
