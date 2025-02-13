@@ -21,8 +21,8 @@ def cookie_verify(cookie: str):
                   "application/signed-exchange;v=b3;q=0.7"
     }
     http = requests.get("https://www.pixiv.net/", headers=header).content.decode("utf-8")
-    content = etree.HTML(http).xpath("//meta[@name=\"global-data\"]/@content")
-    user_data = json.loads(content[0])["userData"]
+    content = etree.HTML(http).xpath("//script[@id=\"__NEXT_DATA__\"]/text()")
+    user_data = json.loads(content[0])["props"]["pageProps"]["userData"]
     if user_data is None:
         raise pbrm.CookieVerifyError("cookie无效,需要更换cookie")
     return {"userId": user_data["id"], "userName": user_data["pixivId"]}
