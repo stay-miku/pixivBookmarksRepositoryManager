@@ -22,7 +22,8 @@ def cookie_verify(cookie: str):
     }
     http = requests.get("https://www.pixiv.net/", headers=header).content.decode("utf-8")
     content = etree.HTML(http).xpath("//script[@id=\"__NEXT_DATA__\"]/text()")
-    user_data = json.loads(content[0])["props"]["pageProps"]["userData"]
+    preload_state = json.loads(content[0])["props"]["pageProps"]["serverSerializedPreloadedState"]
+    user_data = json.loads(preload_state)["userData"]["self"]
     if user_data is None:
         raise pbrm.CookieVerifyError("cookie无效,需要更换cookie")
     return {"userId": user_data["id"], "userName": user_data["pixivId"]}
